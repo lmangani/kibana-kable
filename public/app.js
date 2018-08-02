@@ -32,8 +32,6 @@ require('ui/routes')
   });
 
 app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window) {
-  // TODO: For some reason the Kibana core doesn't correctly do this for all apps.
-  moment.tz.setDefault(config.get('dateFormat:tz'));
   
   timefilter.enableAutoRefreshSelector();
   timefilter.enableTimeRangeSelector();
@@ -47,7 +45,6 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
   $scope.tab = 'vis';
 
   function init() {
-    $scope.search();
     $scope.$listen($scope.state, 'fetch_with_changes', $scope.search);
     $scope.$listen(timefilter, 'fetch', $scope.search);
     $scope.run();
@@ -114,14 +111,13 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
 
   $scope.run = function () {
     $scope.state.save();
-    const timefilterBounds = $scope.timefilter.getBounds();
     $scope.dataTables = _.map($scope.state.panels, function (panel) {
       return $http.post('../api/kable/run', {
         expression: panel.expression,
-        time: {
-          from: timefilterBounds.min.valueOf(),
-          to: timefilterBounds.max.valueOf()
-        }
+        time: _.extend(timefilter.time, {
+          interval: $scope.state.interval,
+          timezone: timezone
+        }),
       }).then(function (resp) {
         return resp.data;
         dismissNotifications();
