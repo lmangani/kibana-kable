@@ -39,4 +39,4 @@ Also, you need to extract from the `.keyword` version of fields if you're using 
 
 ## Credits
 
-This is a Fork of the [Real Kable](https://github.com/rashidkpc/kable)
+This is a Fork of the [Real Kable](https://github.com/rashidkpc/kable) by [Rashid Khan](https://github.com/rashidkpc)
