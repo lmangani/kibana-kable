@@ -10,7 +10,7 @@ app.directive('textareaInput', function ($compile, Private, $rootScope) {
       console.log('bind');
       // lol[0].scrollHeight
       $elem.on('keydown', function (e) {
-        $elem.height($elem[0].scrollHeight - 10);
+        // $elem.height($elem[0].scrollHeight - 10);
 
 
         if (e.keyCode !== 13) return;
