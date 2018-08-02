@@ -40,6 +40,9 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
 
   const notify = new Notifier({location: 'Kable'});
 
+  const timezone = Private(timezoneProvider)();
+  // const docTitle = Private(DocTitleProvider);
+
   $scope.panelTypes = panelTypes;
   $scope.state = new AppState({expression: ''});
   $scope.tab = 'vis';
