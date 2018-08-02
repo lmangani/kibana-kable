@@ -1,3 +1,6 @@
+import { DocTitleProvider } from 'ui/doc_title';
+import { timezoneProvider } from 'ui/vis/lib/timezone';
+
 const moment = require('moment');
 const _ = require('lodash');
 require('plugins/kable/less/main.less');
@@ -8,6 +11,8 @@ require('plugins/kable/directives/panel_config');
 require('ui/autoload/all');
 
 const timelionLogo = require('plugins/kable/kable.svg');
+
+document.title = 'Kable - Kibana';
 
 require('ui/chrome')
 .setBrand({
@@ -27,7 +32,12 @@ require('ui/routes')
   });
 
 app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window) {
-  timefilter.enabled = true;
+  // TODO: For some reason the Kibana core doesn't correctly do this for all apps.
+  moment.tz.setDefault(config.get('dateFormat:tz'));
+  
+  timefilter.enableAutoRefreshSelector();
+  timefilter.enableTimeRangeSelector();
+  
   $scope.timefilter = timefilter;
 
   const notify = new Notifier({location: 'Kable'});
@@ -37,8 +47,25 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
   $scope.tab = 'vis';
 
   function init() {
+    $scope.search();
+    $scope.$listen($scope.state, 'fetch_with_changes', $scope.search);
+    $scope.$listen(timefilter, 'fetch', $scope.search);
     $scope.run();
   }
+  
+  let refresher;
+  $scope.$watchCollection('timefilter.refreshInterval', function (interval) {
+    if (refresher) $timeout.cancel(refresher);
+    if (interval.value > 0 && !interval.pause) {
+      function startRefresh() {
+        refresher = $timeout(function () {
+          if (!$scope.running) $scope.search();
+          startRefresh();
+        }, interval.value);
+      }
+      startRefresh();
+    }
+  });
 
   function getDefaultView() {
     return {
