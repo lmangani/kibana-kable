@@ -1,3 +1,6 @@
+import { DocTitleProvider } from 'ui/doc_title';
+import { timezoneProvider } from 'ui/vis/lib/timezone';
+
 const moment = require('moment');
 const _ = require('lodash');
 require('plugins/kable/less/main.less');
@@ -8,6 +11,8 @@ require('plugins/kable/directives/panel_config');
 require('ui/autoload/all');
 
 const timelionLogo = require('plugins/kable/kable.svg');
+
+document.title = 'Kable - Kibana';
 
 require('ui/chrome')
 .setBrand({
@@ -26,19 +31,41 @@ require('ui/routes')
     template: require('plugins/kable/templates/index.html')
   });
 
-app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window) {
-  timefilter.enabled = true;
+app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window, Private, kbnUrl, config, $timeout) {
+  
+  timefilter.enableAutoRefreshSelector();
+  timefilter.enableTimeRangeSelector();
+  
   $scope.timefilter = timefilter;
 
   const notify = new Notifier({location: 'Kable'});
+
+  const timezone = Private(timezoneProvider)();
+  // const docTitle = Private(DocTitleProvider);
 
   $scope.panelTypes = panelTypes;
   $scope.state = new AppState({expression: ''});
   $scope.tab = 'vis';
 
   function init() {
+    $scope.$listen($scope.state, 'fetch_with_changes', $scope.search);
+    $scope.$listen(timefilter, 'fetch', $scope.search);
     $scope.run();
   }
+  
+  let refresher;
+  $scope.$watchCollection('timefilter.refreshInterval', function (interval) {
+    if (refresher) $timeout.cancel(refresher);
+    if (interval.value > 0 && !interval.pause) {
+      function startRefresh() {
+        refresher = $timeout(function () {
+          if (!$scope.running) $scope.search();
+          startRefresh();
+        }, interval.value);
+      }
+      startRefresh();
+    }
+  });
 
   function getDefaultView() {
     return {
@@ -87,14 +114,13 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
 
   $scope.run = function () {
     $scope.state.save();
-    const timefilterBounds = $scope.timefilter.getBounds();
     $scope.dataTables = _.map($scope.state.panels, function (panel) {
       return $http.post('../api/kable/run', {
         expression: panel.expression,
-        time: {
-          from: timefilterBounds.min.valueOf(),
-          to: timefilterBounds.max.valueOf()
-        }
+        time: _.extend(timefilter.time, {
+          interval: $scope.state.interval,
+          timezone: timezone
+        }),
       }).then(function (resp) {
         return resp.data;
         dismissNotifications();
