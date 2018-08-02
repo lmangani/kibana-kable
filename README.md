@@ -4,6 +4,8 @@
 Does stuff with like, fields, and expressions, and stuff. Also things.
 Not the [Real Kable](https://github.com/rashidkpc/kable)
 
+![ezgif com-optimize 17](https://user-images.githubusercontent.com/1423657/43606464-b3795bd8-969b-11e8-9c64-a29e258adf56.gif)
+
 ### Functions
 
 | name  | description | param  |
