@@ -1,0 +1,165 @@
+/*
+ * Kable syntax parser
+ *
+ * In theory this minimal grammar will do all of my bidding,
+ * I don’t need things like arrays, probably, as I could cast
+ * say one,two into [one,two] if the argument requires it.
+ * Maybe this will bite me in the ass. We’ll see!
+ *
+ * Turns out I needed a parser for some search syntax so I didn't have to pass everything as strings
+ *
+ */
+
+start
+ = chain
+
+chain
+ = first:function rest:function* {
+  return {
+   type: 'chain',
+   chain: [first].concat(rest)
+  }
+ }
+
+ /* ----- Functions ----- */
+
+function "function"
+ = '.' + name:function_name arg_list:arg_list? {
+  return {
+    type: 'function',
+    function: name,
+    arguments: arg_list || []
+  }
+ }
+
+function_name
+ = (name:[a-zA-Z0-9_-]+ ) {
+  return name.join('')
+ }
+
+ /* ----- Arguments ----- */
+
+argument
+ = name:function_name space? '=' space? value:arg_type {
+  return {
+   type: 'named',
+   name: name,
+   value: value,
+  }
+ }
+ / arg_type
+
+arg_type
+ = chain
+ / literal
+ / search
+
+
+arg_list
+ = '(' space? first:argument* rest:more_args* space? ')'{
+  return first.concat(rest);
+ }
+
+more_args
+ = space? ',' space? arg:argument {return arg;}
+
+ /* ----- Search Syntax ----- */
+
+search
+ = !space clauses:clause+ {
+  return {type: 'search', clauses: clauses}
+ }
+
+clause
+ = group
+ / match
+
+group
+ = space? imperative:imperative? '(' clauses:clause+ ')' space? {
+  return {
+   type: 'group',
+   imperative: imperative ? imperative : 'should',
+   clauses: clauses
+  };
+ }
+
+imperative
+ = '-' {return 'must_not';}
+ / '+' {return 'must'}
+
+field
+ = string:[A-Za-z0-9\-()._]+ { return string.join(''); }
+
+operator
+ = ':<=' {return 'lte'}
+ / ':>=' {return 'gte'}
+ / ':<'  {return 'lt'}
+ / ':>'  {return 'gt'}
+ / ':'  {return 'eq'}
+
+value
+ = literal
+
+match
+ = match_field
+ / match_solo
+
+match_field
+ = space? imperative:imperative? field:field operator:operator value:value space? {
+  return {
+   type:operator,
+   field:field,
+   value:value,
+   imperative: imperative ? imperative : 'should'
+  }
+ }
+
+match_solo
+ = space? imperative:imperative? value:value space? {
+  return {
+   type:'eq',
+   field:'_all',
+   value:value,
+   imperative: imperative ? imperative : 'should'
+  }
+ }
+
+ /* ----- Core types ----- */
+
+literal "literal"
+  = phrase
+  / boolean
+  / null
+  / unquoted_string_or_number
+
+phrase
+ = '"' chars:dq_char* '"' { return chars.join(''); } // double quoted string
+ / "'" chars:sq_char* "'" { return chars.join(''); } // single quoted string
+
+unquoted_string_or_number
+ // Make sure we're not matching the beginning of a search
+ = !match_field string:[^()\+\<\>\-"',=:\ \t]+ { // this also matches numbers via Number()
+   var result = string.join('');
+   // Sort of hacky, but PEG doesn't have backtracking so
+   // a number rule is hard to read, and performs worse
+   if (isNaN(Number(result))) return result;
+   return Number(result);
+  }
+
+boolean
+ = 'true'  { return true; } // unquoted literals from here down
+ / 'false' { return false; }
+
+null
+ = 'null' {return null;}
+
+space
+ = [\ \t]+
+
+dq_char
+  = "\\" sequence:('"' / "\\") { return sequence; }
+  / [^"] // everything except "
+
+sq_char
+  = "\\" sequence:("'" / "\\") { return sequence; }
+  / [^'] // everything except '

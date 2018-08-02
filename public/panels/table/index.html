@@ -1,0 +1,13 @@
+<table class="table table-compact table-striped kable-panel-table">
+  <thead>
+    <tr>
+      <th ng-repeat="column in rowObj.data.header track by $index">{{column}}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr ng-repeat="row in rowObj.data.rows">
+      <td ng-repeat="cell in ::row track by $index">{{cell}}</td>
+    </tr>
+  </tbody>
+</table>

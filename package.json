@@ -1,0 +1,41 @@
+{
+  "name": "kable",
+  "version": "6.2.4",
+  "kibana": {
+    "version": "6.2.4"
+  },
+  "description": "Weeeeee",
+  "main": "gulpfile.js",
+  "scripts": {
+    "start": "gulp dev",
+    "build": "gulp build",
+    "package": "gulp package",
+    "test": "gulp test"
+  },
+  "devDependencies": {
+    "bluebird": "^3.1.1",
+    "gulp": "^3.9.0",
+    "gulp-gzip": "^1.2.0",
+    "gulp-tar": "^1.8.0",
+    "gulp-util": "^3.0.7",
+    "lodash": "^3.10.1",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.5.0",
+    "rsync": "^0.4.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.3",
+    "angular-formly": "^8.2.0",
+    "angular-formly-templates-bootstrap": "^6.3.2",
+    "angular-ui-bootstrap": "^1.2.5",
+    "api-check": "^7.5.5",
+    "babel-register": "^6.3.13",
+    "bluebird": "^3.1.1",
+    "bootstrap": "^3.3.6",
+    "elasticsearch": "^10.1.0",
+    "glob": "^6.0.4",
+    "pegjs": "^0.9.0",
+    "to-camel-case": "^0.2.1",
+    "ui-select": "^0.16.1"
+  }
+}

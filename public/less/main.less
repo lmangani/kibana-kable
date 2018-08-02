@@ -1,0 +1,159 @@
+@import "~ui/styles/base.less";
+@import (reference) "~ui/styles/mixins";
+@import "~ui-select/dist/select.css";
+
+@kabel-transition-speed: 0.2s;
+
+.formly {
+  .form-control {
+    background-color: @input-bg;
+    color: @input-color;
+    border-color: @input-border;
+  }
+
+  .help-block {
+    margin-bottom: 0px;
+  }
+}
+
+.application {
+  background-color: @kibanaGray6;
+}
+
+.kable-expression {
+  width: 95% !important;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.kable-container {
+  margin: 10px;
+  position: relative;
+}
+
+.kable-add {
+  float: right;
+  font-size: 4em;
+  text-shadow: 2px 2px 2px rgba(214,214,214,1);
+  color: @kibanaPink1;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
+
+.kable-panel {
+  box-shadow: 2px 2px 20px 0px rgba(214,214,214,1);
+  background-color: @white;
+  margin-bottom: 10px;
+  position: relative;
+  overflow-y: hidden;
+
+  kable-renderer {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 350px;
+  }
+
+  &-body {
+    position: relative;
+    overflow: hidden;
+  }
+
+  &-config, &-content {
+    background-color: @white;
+    position: absolute;
+    top: -350px; right: 0; bottom: 0; left: 0;
+    height: 350px;
+    max-height: 350px;
+    overflow: auto;
+    transition: transform @kabel-transition-speed;
+  }
+
+  &-config {
+    padding: 10px;
+    //border-bottom: 5px solid @kibanaYellow1;
+  }
+
+  &-content {
+    //border-bottom: 5px solid @kibanaGreen1;
+  }
+
+  &-on-top {
+    transform: translate(0px, 350px);
+    transition: transform @kabel-transition-speed;
+    transition-delay: @kabel-transition-speed;
+  }
+
+  &-view-tab {
+    padding: 0px 15px;
+    line-height: 35px;
+    border-right: 1px solid @kibanaGray3;
+    color: @white;
+    flex: 1;
+    text-align: center;
+
+    &:hover {
+      background-color: #000;
+      opacity: 0.8 !important;
+    }
+
+    &.no-flex {
+      flex: 0;
+    }
+
+  }
+
+  &-view-tabs {
+    border-top: 5px solid @white;
+    position: absolute;
+    bottom: -35px;
+    background-color: #555;
+    opacity: 0.8;
+    width: 100%;
+    height: 40px;
+    z-index: 20;
+    display: flex;
+    flex-direction: row;
+    transition: transform @kabel-transition-speed;
+
+    &:hover {
+      transform: translate(0px, -35px);
+      transition: transform @kabel-transition-speed;
+    }
+  }
+
+}
+
+.kable-quick-settings {
+  background-color: @navbar-default-bg;
+  padding: 5px;
+  color: #eee;
+  border-bottom-right-radius: @border-radius-base;
+
+  .active {
+    color: @brand-warning;
+  }
+}
+
+navbar.kable-navbar {
+  padding: 5px;
+  background-color: @kibanaGray4;
+
+  .input-group {
+    display: flex;
+    flex-direction: row;
+
+    textarea {
+      flex-grow: 1;
+    }
+
+    button {
+      flex-grow: 0;
+    }
+  }
+}

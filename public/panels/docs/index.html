@@ -1,0 +1,10 @@
+<table class="table table-striped table-condensed kable-panel-docs">
+  <tr ng-repeat="doc in docs">
+    <td>
+      <div class="field-pair" ng-repeat="(val, key) in doc">
+        <div class="field-name">{{::val}}</div>
+        <div class="field-value">{{::key}}</div>
+      </div>
+    </td>
+  </tr>
+</table>

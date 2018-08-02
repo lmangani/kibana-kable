@@ -1,0 +1,30 @@
+<form>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="form-group col-sm-8">
+        <label>Panel type</label>
+        <select class="form-control"
+          ng-model="config.type"
+          ng-options="a.name as a.name for a in panelTypes"
+        ></select>
+      </div>
+
+      <div class="col-sm-4">
+        <label>Download as File</label>
+        <div>
+          <a class="btn btn-info" ng-click="download()"><i class="fa fa-download"></i> CSV</a>
+          <a class="btn btn-info" ng-click="download(true)"><i class="fa fa-download"></i> Javascript</a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <formly-form
+        model="config"
+        fields="form"
+        ng-show="form">
+      </formly-form>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,5 @@
+{
+  "elasticsearch": {
+    "host": "http://admin:notsecure@localhost:9200"
+  }
+}
