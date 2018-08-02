@@ -48,8 +48,8 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
   $scope.tab = 'vis';
 
   function init() {
-    $scope.$listen($scope.state, 'fetch_with_changes', $scope.search);
-    $scope.$listen(timefilter, 'fetch', $scope.search);
+    $scope.$listen($scope.state, 'fetch_with_changes', $scope.run);
+    $scope.$listen(timefilter, 'fetch', $scope.run);
     $scope.run();
   }
   
@@ -59,7 +59,7 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
     if (interval.value > 0 && !interval.pause) {
       function startRefresh() {
         refresher = $timeout(function () {
-          if (!$scope.running) $scope.search();
+          if (!$scope.running) $scope.run();
           startRefresh();
         }, interval.value);
       }
