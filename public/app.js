@@ -31,7 +31,7 @@ require('ui/routes')
     template: require('plugins/kable/templates/index.html')
   });
 
-app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window) {
+app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, timefilter, $window, Private, kbnUrl, config, $timeout) {
   
   timefilter.enableAutoRefreshSelector();
   timefilter.enableTimeRangeSelector();
