@@ -6,11 +6,19 @@ Not the [Real Kable](https://github.com/rashidkpc/kable)
 
 ![ezgif com-optimize 17](https://user-images.githubusercontent.com/1423657/43606464-b3795bd8-969b-11e8-9c64-a29e258adf56.gif)
 
+## Installation
+```
+kibana-plugin install https://github.com/lmangani/kibana-kable/raw/master/dist/kable-6.2.4.zip
+```
+#### Custom Release
+```
+./release.sh
+```
+
 ### Functions
 
 | name  | description | param  |
 |---|---|---|
-| latest  | Get the latest value of some field  | `field`,`by`  |
 | add  | Add one column, or number, by another  | `col1`,`col2`,`dest`  |
 | bottom  | Find the least common values for a field  | `field`,`count`#  |
 | display | Specify the index to search  | `display`,`columns`[]  |
@@ -20,6 +28,7 @@ Not the [Real Kable](https://github.com/rashidkpc/kable)
 | exsplit  | Split a field at a delimiter  | `src`,`separator`,`index`#,`dest`  |
 | finalize | Finalizes a chain. Optional. |   |
 | index | Specify the index to search  | `index`,`timefield`  |
+| latest  | Get the latest value of some field  | `field`,`by`  |
 | multiply  | Multiply one column, or number, by another  | `col1`,`col2`,`dest`   |
 | search  | Filter Search  | `search`  |
 | stats  | Calculate Statistic Aggs  | `stats`[],`field`  |
