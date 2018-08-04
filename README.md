@@ -4,7 +4,7 @@
 Does stuff with like, fields, and expressions, and stuff. Also things.
 Not the [Real Kable](https://github.com/rashidkpc/kable)
 
-![ezgif com-optimize 17](https://user-images.githubusercontent.com/1423657/43606464-b3795bd8-969b-11e8-9c64-a29e258adf56.gif)
+![ezgif com-optimize 7](https://user-images.githubusercontent.com/1423657/43681015-555f84a6-9848-11e8-81f3-94c20167d629.gif)
 
 ## Installation
 ```
@@ -50,4 +50,4 @@ Also, you need to extract from the `.keyword` version of fields for Search
 
 ## Credits
 
-This is a Fork of the [Real Kable](https://github.com/rashidkpc/kable) by [Rashid Khan](https://github.com/rashidkpc)
+This is an extended Fork of the [Real Kable](https://github.com/rashidkpc/kable) by [Rashid Khan](https://github.com/rashidkpc)
