@@ -1,19 +1,10 @@
 <img src="https://github.com/lmangani/kibana-kable/raw/master/public/header.png" />
 
-# kable 6.2.4
+# Kable 6.2
 Does stuff with like, fields, and expressions, and stuff. Also things.
 Not the [Real Kable](https://github.com/rashidkpc/kable)
 
 ![ezgif com-optimize 7](https://user-images.githubusercontent.com/1423657/43681015-555f84a6-9848-11e8-81f3-94c20167d629.gif)
-
-## Installation
-```
-kibana-plugin install https://github.com/lmangani/kibana-kable/raw/master/dist/kable-6.2.4.zip
-```
-#### Custom Release
-```
-./release.sh
-```
 
 ## Installation
 ```
@@ -57,6 +48,7 @@ You need to turn on regexs in Painless if you want any of the field extraction s
 
 Also, you need to extract from the `.keyword` version of fields for Search
 
-## Credits
-
+#### Acknowledgement
 This is an extended Fork of the [Real Kable](https://github.com/rashidkpc/kable) by [Rashid Khan](https://github.com/rashidkpc)
+
+Elasticsearch and Kibana are trademarks of Elasticsearch BV, registered in the U.S. and in other countries.
