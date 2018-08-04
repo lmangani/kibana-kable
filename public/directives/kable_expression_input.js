@@ -1,3 +1,26 @@
+/**
+ * kable Expression Autocompleter
+ *
+ * This directive allows users to enter multiline kable expressions. If the user has entered
+ * a valid expression and then types a ".", this directive will display a list of suggestions.
+ *
+ * Users can navigate suggestions using the arrow keys. When a user selects a suggestion, it's
+ * inserted into the expression and the caret position is updated to be inside of the newly-
+ * added function's parentheses.
+ *
+ * Beneath the hood, we use a PEG grammar to validate the kable expression and detect if
+ * the caret is in a position within the expression that allows functions to be suggested.
+ *
+ * NOTE: This directive doesn't work well with contenteditable divs. Challenges include:
+ *   - You have to replace markup with newline characters and spaces when passing the expression
+ *     to the grammar.
+ *   - You have to do the opposite when loading a saved expression, so that it appears correctly
+ *     within the contenteditable (i.e. replace newlines with <br> markup).
+ *   - The Range and Selection APIs ignore newlines when providing caret position, so there is
+ *     literally no way to insert suggestions into the correct place in a multiline expression
+ *     that has more than a single consecutive newline.
+ */
+
 import _ from 'lodash';
 import $ from 'jquery';
 import PEG from 'pegjs';
@@ -15,30 +38,9 @@ import { comboBoxKeyCodes } from '@elastic/eui';
 import { ArgValueSuggestionsProvider } from './kable_expression_suggestions/arg_value_suggestions';
 
 const Parser = PEG.buildParser(grammar);
+const app = require('ui/modules').get('apps/kable', []);
 
-var app = require('ui/modules').get('apps/kable', []);
-
-/*
-app.directive('textareaInput', function ($compile, Private, $rootScope, $document, $http, $interval, $timeout) {
-  return {
-    restrict: 'C',
-    link: function ($scope, $elem, attrs) {
-      console.log('bind');
-      // lol[0].scrollHeight
-      $elem.on('keydown', function (e) {
-        // $elem.height($elem[0].scrollHeight - 10);
-
-        if (e.keyCode !== 13) return;
-        $elem.submit();
-        e.preventDefault();
-      })
-    }
-  };
-});
-
-*/
-
-app.directive('timelionExpressionInput', function ($document, $http, $interval, $timeout, Private, $compile) {
+app.directive('kableExpressionInput', function ($document, $http, $interval, $timeout, Private) {
   return {
     restrict: 'E',
     scope: {
@@ -216,7 +218,6 @@ app.directive('timelionExpressionInput', function ($document, $http, $interval, 
               // Re-render the chart when the user hits CMD+ENTER.
               e.preventDefault();
               scope.updateChart();
-	      elem.submit();
             } else if (!scope.suggestions.isEmpty()) {
               // If the suggestions are open, complete the expression with the suggestion.
               e.preventDefault();

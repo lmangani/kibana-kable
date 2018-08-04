@@ -1,7 +1,7 @@
 <div>
   <div ng-show="page === 1">
     <div class="doc-container-content">
-      <h1>Welcome to <strong>Timelion</strong>!</h1>
+      <h1>Welcome to <strong>kable</strong>!</h1>
       <p>
         Timelion is the clawing, gnashing, zebra killing, pluggable time
         series interface for <em>everything</em>. If your datastore can
@@ -386,10 +386,10 @@
           </a>.
         </div>
 
-        <div class="timelionFunctionsDropdownContent">
-          <table class="table table-condensed table-bordered timelionFunctionsTable">
+        <div class="kableFunctionsDropdownContent">
+          <table class="table table-condensed table-bordered kableFunctionsTable">
             <tr
-              class="timelionFunctionsTableRow"
+              class="kableFunctionsTableRow"
               ng-repeat-start="function in functions.list"
               ng-class="{active: functions.details === function.name}"
               ng-click="functions.details =
@@ -405,7 +405,7 @@
                 <div class="suggestion-details" >
                   <table
                     class="table table-condensed table-bordered
-                           timelionFunctionDetailsTable"
+                           kableFunctionDetailsTable"
                     ng-show="function.args.length > (function.chainable ? 1: 0)"
                   >
                     <thead>
@@ -439,7 +439,7 @@
     <tab heading="Keyboard tips">
       <div class="list-group-item list-group-item--noBorder">
         <!-- General editing tips -->
-        <dl class="dl-horizontal timelionHelpKeyboardTipsSection">
+        <dl class="dl-horizontal kableHelpKeyboardTipsSection">
           <dt></dt>
           <dd><strong>General editing</strong></dd>
           <dt>Ctrl/Cmd + Enter</dt>
@@ -447,7 +447,7 @@
         </dl>
 
         <!-- Auto complete tips -->
-        <dl class="dl-horizontal timelionHelpKeyboardTipsSection">
+        <dl class="dl-horizontal kableHelpKeyboardTipsSection">
           <dt></dt>
           <dd><strong>When auto-complete is visible</strong></dd>
           <dt>Down arrow</dt>

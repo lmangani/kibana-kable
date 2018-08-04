@@ -1,7 +1,7 @@
 var _ = require('lodash');
 var $ = require('jquery');
 
-var app = require('ui/modules').get('apps/timelion', []);
+var app = require('ui/modules').get('apps/kable', []);
 var panelTypes = require('plugins/kable/panels/load');
 var template = require('./kable_renderer.html');
 

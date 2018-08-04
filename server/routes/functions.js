@@ -5,7 +5,7 @@ export default function (server) {
     method: 'GET',
     path: '/api/kable/functions',
     handler: function (request, reply) {
-      const functionArray = _.map(server.plugins.timelion.functions, function (val, key) {
+      const functionArray = _.map(server.plugins.kable.functions, function (val, key) {
         // TODO: This won't work on frozen objects, it should be removed when everything is converted to datasources and chainables
         return _.extend({}, val, { name: key });
       });

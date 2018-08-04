@@ -46,7 +46,7 @@ module.exports = function (kibana) {
  	   return functions[name];
  	 }
 
- 	 server.plugins.timelion = {
+ 	 server.plugins.kable = {
  	   functions: functions,
  	   addFunction: addFunction,
  	   getFunction: getFunction
