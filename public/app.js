@@ -5,9 +5,12 @@ const moment = require('moment');
 const _ = require('lodash');
 require('plugins/kable/less/main.less');
 require('plugins/kable/components/kable_renderer/kable_renderer');
-require('plugins/kable/directives/textarea_input');
-require('plugins/kable/directives/panel_config');
+//require('plugins/kable/directives/textarea_input');
 
+require('plugins/kable/directives/kable_expression_input');
+require('plugins/kable/directives/kable_help/kable_help');
+
+require('plugins/kable/directives/panel_config');
 require('ui/autoload/all');
 
 const timelionLogo = require('plugins/kable/kable.svg');
@@ -28,6 +31,7 @@ const panelTypes = require('plugins/kable/panels/load');
 require('ui/routes').enable();
 require('ui/routes')
   .when('/', {
+    //template: require('plugins/kable/kable.html')
     template: require('plugins/kable/templates/index.html')
   });
 
@@ -42,6 +46,15 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
 
   const timezone = Private(timezoneProvider)();
   // const docTitle = Private(DocTitleProvider);
+
+  $scope.topNavMenu = [
+    {
+    	key: 'help',
+    	description: 'Help',
+    	template: '<kable-help></kable-help>',
+    	testId: 'kableDocsButton',
+    }
+  ];
 
   $scope.panelTypes = panelTypes;
   $scope.state = new AppState({expression: ''});

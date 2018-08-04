@@ -1,4 +1,5 @@
 var path = require('path');
+var _ = require('lodash');
 
 module.exports = function (kibana) {
   return new kibana.Plugin({
@@ -32,6 +33,25 @@ module.exports = function (kibana) {
     init: function (server, options) {
       // Add server routes and initalize the plugin here
       require('./server/routes/run')(server);
+      require('./server/routes/functions')(server);
+
+ 	 const functions = require('./server/lib/load_functions').getFunctions('functions');
+
+ 	 function addFunction(func) {
+ 	   _.assign(functions, processFunctionDefinition(func));
+ 	 }
+
+ 	 function getFunction(name) {
+ 	   if (!functions[name]) throw new Error ('No such function: ' + name);
+ 	   return functions[name];
+ 	 }
+
+ 	 server.plugins.kable = {
+ 	   functions: functions,
+ 	   addFunction: addFunction,
+ 	   getFunction: getFunction
+ 	 };
+
     }
 
   });

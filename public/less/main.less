@@ -1,6 +1,8 @@
 @import "~ui/styles/base.less";
 @import (reference) "~ui/styles/mixins";
 @import "~ui-select/dist/select.css";
+@import './suggestions.less';
+
 
 @kabel-transition-speed: 0.2s;
 
@@ -162,4 +164,192 @@ navbar.kable-navbar {
       flex-grow: 0;
     }
   }
+}
+
+
+/* imported rules */
+
+.kableHelpKeyboardTipsSection {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/**
+ * 1. Anchor suggestions beneath input.
+ * 2. Allow for option of positioning suggestions absolutely.
+ */
+.kableExpressionInputContainer {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column; /* 1 */
+  position: relative; /* 2 */
+}
+
+.kableExpressionInput {
+  min-height: 65px;
+}
+
+.kable-container {
+  margin: 20px;
+}
+
+.kable-container-drawer {
+  position: fixed;
+  bottow: 0px;
+}
+
+.kable-container-drawer-tab {
+  width: 100%;
+  background-color: @gray-lighter;
+}
+
+.kable-subnav {
+  background-color: @gray-lighter;
+  margin: 0px
+}
+
+.kable-stats {
+  font-weight: normal;
+}
+
+.kable-buttons {
+  position: absolute;
+  right: 0px;
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: @navbar-default-bg;
+  border-bottom-left-radius: @border-radius-base;
+
+  a {
+    margin: 5px;
+    color: #000;
+  }
+}
+
+[ng-click] {
+  cursor: pointer;
+}
+
+.chart-container {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  border: 2px dashed transparent;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+  margin-bottom: 10px;
+
+  &.active {
+    border-color: #ccc;
+  }
+}
+
+.chart-container.running {
+  opacity: 0.50;
+}
+
+kable-interval {
+  display: flex;
+}
+
+.kableFunctionsDropdownContent {
+  height: 310px;
+  overflow-y: auto;
+}
+
+.kableFunctionsTable {
+  background-color: white;
+}
+
+.kableFunctionsTableRow {
+  &:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+/**
+ * 1. Override bootstrap .table styles.
+ */
+.kableFunctionDetailsTable {
+  background-color: #f9f9f9 !important; // 1
+}
+
+.doc-container-content {
+  position: relative;
+}
+
+.doc-container-buttons {
+  position: relative;
+  text-align: center;
+  height: 40px;
+
+  .btn-doc-prev {
+    position: absolute;
+    left: 0px;
+  }
+
+  .btn-doc-next {
+    position: absolute;
+    right: 0px;
+  }
+}
+
+.cell-actions {
+  position: absolute;
+  bottom:5px;
+  left:5px;
+  line-height: 10px;
+
+  > .cell-action,
+  > .cell-id {
+    display: inline-block;
+    font-size: 10px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    border: 1px solid #666;
+    padding: 3px;
+    font-weight: bold;
+    background-color: #ccc;
+    opacity: 0.50;
+    z-index: 10;
+  }
+
+  .cell-action {
+    opacity: 0;
+
+    &:focus {
+      opacity: 1;
+    }
+  }
+}
+
+.chart-container:hover {
+  .cell-action {
+    opacity: 0.50;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.legendLabel {
+  //max-width: 210px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+}
+
+.ngLegendValue:focus,
+.ngLegendValue:hover {
+  text-decoration: underline;
+}
+
+.ngLegendValueNumber {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: bold;
 }

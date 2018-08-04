@@ -1,6 +1,11 @@
 <div ng-controller="kableHelloWorld" class="app-container">
 
   <kbn-top-nav name="kable">
+    <!-- Transcluded elements. -->
+    <div data-transclude-slots>
+      <div data-transclude-slot="topLeftCorner">
+      </div>
+    </div>
   </kbn-top-nav>
 
   <div class="kable-container">
@@ -9,7 +14,9 @@
 
         <div class="col-12-sm kable-panel" ng-repeat="panel in state.panels track by $index">
 
-          <navbar class="kable-navbar">
+          <!-- <navbar class="kable-navbar"> -->
+	  <div class="kable-container-sheet">
+	  <!--
             <form role="form" class="fill inline-form" ng-submit="run()" name="expression">
               <div class="input-group">
                 <textarea input-focus
@@ -18,7 +25,36 @@
                 <button type="submit"><span class="fa fa-search kable-search"></span></button>
               </div>
             </form>
-          </navbar>
+	   -->
+	      <!-- Search. -->
+	      <form
+	        role="form"
+	        ng-submit="run()"
+	        class="kuiFieldGroup kuiFieldGroup--alignTop kuiVerticalRhythm"
+	      >
+	        <div class="kuiFieldGroupSection kuiFieldGroupSection--wide">
+	          <kable-expression-input
+	            sheet="panel.expression"
+	            rows="1"
+	            update-chart="run()"
+	            should-popover-suggestions="true"
+	          ></kable-expression-input>
+	        </div>
+	
+	        <div class="kuiFieldGroupSection">
+	          <button
+	            type="submit"
+	            aria-label="Search"
+	            class="kuiButton kuiButton--primary fullWidth kuiVerticalRhythmSmall"
+	          >
+	            <span aria-hidden="true" class="kuiButton__icon kuiIcon fa-play"></span>
+	          </button>
+	        </div>
+	      </form>
+	  </div>
+          <!-- </navbar> -->
+
+	  <div class="kable-container-sheet-margin kuiVerticalRhythm"></div>
 
           <div class="kable-panel-body" ng-repeat="view in panel.views track by $index" ng-if="panel.active == $index">
             <kable-renderer ng-class="{'kable-panel-on-top': !panel.editing}"

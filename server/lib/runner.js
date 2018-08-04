@@ -8,7 +8,7 @@ const Parser = require('pegjs').buildParser(fs.readFileSync(path.resolve(__dirna
 const argType = require('./arg_type');
 const types = require('../types');
 const castingProvider = require('./cast');
-const functions = require('./load_functions');
+const functions = require('./load_functions').getTypes;
 const indexArguments = require('./index_arguments');
 
 module.exports = function (kblConfig) {
