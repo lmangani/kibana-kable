@@ -4,7 +4,7 @@
 Does stuff with like, fields, and expressions, and stuff. Also things.
 Not the [Real Kable](https://github.com/rashidkpc/kable) 
 
-![ezgif com-optimize 7](https://user-images.githubusercontent.com/1423657/43681015-555f84a6-9848-11e8-81f3-94c20167d629.gif)
+![ezgif com-optimize 9](https://user-images.githubusercontent.com/1423657/43684130-9b963b0c-989a-11e8-9196-f35c7e14fdcb.gif)
 
 ## Installation
 ```
