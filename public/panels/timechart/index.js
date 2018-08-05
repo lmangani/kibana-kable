@@ -58,8 +58,16 @@ module.exports = new Panel('timechart', {
       label: 'Lines',
       type: 'checkbox',
       default: true,
-      span: 2,
-      help: 'Show connecting lines'
+      span: 1,
+      help: 'Show Lines'
+    },
+    {
+      name: 'show_bars',
+      label: 'Bars',
+      type: 'checkbox',
+      default: false,
+      span: 1,
+      help: 'Show Bars'
     }
   ],
   render: function timechartPanel() {
@@ -68,7 +76,8 @@ module.exports = new Panel('timechart', {
 
       var defaultOptions = {
         series: {
-          lines: {show: config.show_lines}
+          lines: {show: config.show_lines},
+          bars: {show: config.show_bars}
         },
         xaxis: {
           mode: 'time',
