@@ -42,6 +42,11 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
   
   $scope.timefilter = timefilter;
 
+  // Keeping this at app scope allows us to keep the current page when the user
+  // switches to say, the timepicker.
+  $scope.page = config.get('timelion:showTutorial', true) ? 1 : 0;
+  $scope.setPage = (page) => $scope.page = page;
+
   const notify = new Notifier({location: 'Kable'});
 
   const timezone = Private(timezoneProvider)();
