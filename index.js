@@ -22,6 +22,9 @@ module.exports = function (kibana) {
           };
         }
       },
+      home: [
+        'plugins/kable/register_feature'
+      ],
     },
 
     config: function (Joi) {
