@@ -6,7 +6,7 @@ export default function (server) {
       return request.getUiSettingsService().getAll().then((uiSettings) => {
         const { callWithRequest } = server.plugins.elasticsearch.getCluster('data');
 
-        const timefield = ( uiSettings['timelion:es.timefield'] || '@timestamp' );
+        const timefield = ( uiSettings['kable:es.timefield'] || '@timestamp' );
 
         const body = {
           index: ( uiSettings['es.default_index'] || '_all' ),
