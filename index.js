@@ -22,6 +22,23 @@ module.exports = function (kibana) {
           };
         }
       },
+      home: [
+        'plugins/kable/register_feature'
+      ],
+      uiSettingDefaults: {
+        'kable:showTutorial': {
+          value: false,
+          description: 'Should I show the tutorial by default when entering the kable app?'
+        },
+        'kable:es.timefield': {
+          value: '@timestamp',
+          description: 'Default field containing a timestamp when using .es()'
+        },
+        'kable:es.default_index': {
+          value: '_all',
+          description: 'Default elasticsearch index to search with .es()'
+        },
+      }
     },
 
     config: function (Joi) {
@@ -34,6 +51,7 @@ module.exports = function (kibana) {
       // Add server routes and initalize the plugin here
       require('./server/routes/run')(server);
       require('./server/routes/functions')(server);
+      require('./server/routes/validate_es')(server);
 
  	 const functions = require('./server/lib/load_functions').getFunctions('functions');
 

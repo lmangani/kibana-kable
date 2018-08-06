@@ -31,7 +31,6 @@ const panelTypes = require('plugins/kable/panels/load');
 require('ui/routes').enable();
 require('ui/routes')
   .when('/', {
-    //template: require('plugins/kable/kable.html')
     template: require('plugins/kable/templates/index.html')
   });
 
@@ -41,6 +40,11 @@ app.controller('kableHelloWorld', function ($scope, $http, AppState, Notifier, t
   timefilter.enableTimeRangeSelector();
   
   $scope.timefilter = timefilter;
+
+  // Keeping this at app scope allows us to keep the current page when the user
+  // switches to say, the timepicker.
+  $scope.page = config.get('kable:showTutorial', true) ? 1 : 0;
+  $scope.setPage = (page) => $scope.page = page;
 
   const notify = new Notifier({location: 'Kable'});
 

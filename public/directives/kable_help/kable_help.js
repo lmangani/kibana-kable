@@ -17,7 +17,8 @@ app.directive('kableHelp', function ($http) {
 
       function init() {
         $scope.es = {
-          invalidCount: 0
+          invalidCount: 0,
+	  valid: true
         };
         getFunctions();
         checkElasticsearch();
