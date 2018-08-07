@@ -1,4 +1,6 @@
-# Kable 6.2 <img src="https://user-images.githubusercontent.com/1423657/43795695-70b7c876-9a82-11e8-8fea-c1b01efdd390.png" width=30>
+<img src="https://user-images.githubusercontent.com/1423657/43795695-70b7c876-9a82-11e8-8fea-c1b01efdd390.png" width=70>
+
+# Kable 6.2 
 
 Does stuff with like, fields, and expressions, and stuff. Also things.
 Not the [Real Kable](https://github.com/rashidkpc/kable) 
