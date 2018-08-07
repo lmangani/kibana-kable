@@ -5,7 +5,7 @@ FeatureCatalogueRegistryProvider.register(() => {
     id: 'kable',
     title: 'Kable',
     description: 'Use an expression language to analyze data and visualize the results.',
-    icon: '/plugins/kibana/assets/app_timelion.svg',
+    icon: 'plugins/kable/kable_feature.svg',
     path: '/app/kable',
     showOnHomePage: true,
     category: FeatureCatalogueCategory.DATA
