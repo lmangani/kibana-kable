@@ -12,6 +12,41 @@ const functions = require('./load_functions').getTypes;
 const indexArguments = require('./index_arguments');
 
 module.exports = function (kblConfig) {
+  function pickSentinlExp(expression) {
+    let sentinlExp;
+    const exp = [];
+
+    expression.split('.').forEach((fn) => {
+      if (fn.includes('sentinl')) {
+        sentinlExp = fn;
+      } else {
+        exp.push(fn);
+      }
+    });
+
+    return { sentinlExpression: sentinlExp, expression: exp.join('.') };
+  }
+
+  async function createSentinlWatcher(expression, sentinlExpression) {
+    try {
+      await kblConfig.server.inject({
+        method: 'POST',
+        url: '/api/sentinl/from/kable/run',
+        headers: {
+          'kbn-xsrf': 'anything',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json, text/plain, */*',
+        },  
+        payload: {
+          expression,
+          sentinl_expression: sentinlExpression,
+        },
+      });
+    } catch (err) {
+      throw new Error('create Sentinl watcher: ' + err.toString());
+    }
+  }
+
   // Invokes a modifier function, resolving arguments into series as needed
   function invoke(fnName, args) {
     const functionDef = functions[fnName];
@@ -77,10 +112,8 @@ module.exports = function (kblConfig) {
     });
   }
 
-  return function run(payload) {
+  function run(expression) {
     let result;
-
-    const expression = payload.expression;
 
     if (expression && expression.trim().length) {
       const chain = Parser.parse(expression);
@@ -94,6 +127,20 @@ module.exports = function (kblConfig) {
       return Promise.reject(Boom.badRequest(e.toString()));
     });
   };
+
+  return async function ready(payload) {
+    const { expression, sentinlExpression } = pickSentinlExp(payload.expression)
+
+    if (sentinlExpression) {
+      try {
+        await createSentinlWatcher(expression, sentinlExpression);
+      } catch (err) {
+        throw new Error(Boom.badRequest('run: ' + err.toString()));
+      }
+    }
+    
+    return run(expression);
+  }
 };
 
 function logObj(obj, thing) {
