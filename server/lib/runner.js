@@ -31,7 +31,7 @@ module.exports = function (kblConfig) {
     try {
       await kblConfig.server.inject({
         method: 'POST',
-        url: '/api/sentinl/from/kable/run',
+        url: '/api/sentinl/from/kable/index',
         headers: {
           'kbn-xsrf': 'anything',
           'Content-Type': 'application/json',

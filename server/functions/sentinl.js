@@ -4,15 +4,19 @@ var Strand = require('../lib/strand');
 module.exports = new Strand('sentinl', {
   args: [
     {
-      name: '_input_',
-      types: ['searchRequest']
+      name: 'title',
+      types: ['string'],
     },
     {
       name: 'condition',
       types: ['string'],
     },
     {
-      name: 'action',
+      name: 'actions',
+      types: ['string'],
+    },
+    {
+      name: 'trigger',
       types: ['string'],
     }
   ],
