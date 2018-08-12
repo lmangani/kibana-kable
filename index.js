@@ -53,9 +53,11 @@ module.exports = function (kibana) {
       // Add server routes and initalize the plugin here
       require('./server/routes/run')(server);
       require('./server/routes/functions')(server);
+      require('./server/routes/legacy')(server);
       require('./server/routes/validate_es')(server);
 
  	 const functions = require('./server/lib/load_functions').getFunctions('functions');
+ 	 const legacy = require('./server/lib/load_functions').getTypes;
 
  	 function addFunction(func) {
  	   _.assign(functions, processFunctionDefinition(func));
@@ -68,6 +70,7 @@ module.exports = function (kibana) {
 
  	 server.plugins.kable = {
  	   functions: functions,
+	   legacy: legacy,
  	   addFunction: addFunction,
  	   getFunction: getFunction
  	 };
