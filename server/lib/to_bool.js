@@ -50,7 +50,7 @@ function scriptToQuery(script, value) {
       filter: {
         script: {
           script: {
-            inline: script,
+            source: script,
             params: {
               param: value
             },

@@ -1,3 +1,5 @@
+import processFunctionDefinition from './server/lib/process_function_definition';
+
 var path = require('path');
 var _ = require('lodash');
 
