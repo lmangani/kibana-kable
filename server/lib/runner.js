@@ -21,7 +21,7 @@ module.exports = function (kblConfig) {
 
 
     // Make the arguments to the function into an object
-    args = indexArguments(functions[fnName], args);
+    args = indexArguments(functionDef, args);
 
     // Resolve any chains down to their resolved types
     args = _.mapValues(args, function (arg, name) {
