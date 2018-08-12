@@ -54,7 +54,7 @@ module.exports = new Type('searchRequest', {
           return {
             script: {
               lang: 'painless',
-              inline: script
+              source: script
             }
           };
         })

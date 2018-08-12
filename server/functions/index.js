@@ -9,13 +9,11 @@ module.exports = new Strand('index', {
     },
     {
       name: 'index',
-      types: ['string', 'null'],
-      multi: true
+      types: ['string', 'null']
     },
     {
       name: 'timefield',
-      types: ['string'],
-      multi: true
+      types: ['string']
     }
   ],
   help: 'Specify the index to search',

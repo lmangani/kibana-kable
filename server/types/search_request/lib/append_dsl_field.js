@@ -12,7 +12,7 @@ module.exports = function (field, obj, searchRequest) {
   const result = {
     script: {
       lang: 'painless',
-      inline: getFieldScript(field, searchRequest)
+      source: getFieldScript(field, searchRequest)
     }
   };
 

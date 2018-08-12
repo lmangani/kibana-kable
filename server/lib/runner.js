@@ -14,11 +14,14 @@ const indexArguments = require('./index_arguments');
 module.exports = function (kblConfig) {
   // Invokes a modifier function, resolving arguments into series as needed
   function invoke(fnName, args) {
-    const functionDef = functions[fnName];
+    var functionDef = functions[fnName];
+    if (!functionDef) functionDef = kblConfig.server.plugins.kable.getFunction(fnName);
+    console.log('FUNC',fnName,functionDef)
     if (!functionDef) throw new Error ('Unknown function: ' + fnName);
 
+
     // Make the arguments to the function into an object
-    args = indexArguments(functions[fnName], args);
+    args = indexArguments(functionDef, args);
 
     // Resolve any chains down to their resolved types
     args = _.mapValues(args, function (arg, name) {
