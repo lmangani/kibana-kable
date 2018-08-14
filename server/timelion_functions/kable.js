@@ -1,4 +1,4 @@
-var Datasource = require('../../../src/core_plugins/timelion/server/lib/classes/datasource')
+var Datasource = require('../../../../src/core_plugins/timelion/server/lib/classes/datasource')
 var _ = require('lodash')
 import moment from 'moment';
 
