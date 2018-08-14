@@ -1,3 +1,9 @@
+/*
+ * Frankenstein Kable 6.x
+ * Based on Kable + Timelion
+ * http://qxip.net
+ */
+
 import processFunctionDefinition from './server/lib/process_function_definition';
 
 var path = require('path');
@@ -7,7 +13,7 @@ module.exports = function (kibana) {
   return new kibana.Plugin({
 
     name: 'kable',
-    require: ['kibana', 'elasticsearch'],
+    require: ['kibana', 'elasticsearch', 'timelion'],
     uiExports: {
       app: {
         title: 'Kable',
@@ -74,6 +80,11 @@ module.exports = function (kibana) {
  	   addFunction: addFunction,
  	   getFunction: getFunction
  	 };
+
+      if(server.plugins.timelion){
+	// Inject Kable Timelion
+	server.plugins.timelion.addFunction(require('./server/timelion_functions/kable'));
+      }
 
     }
 
