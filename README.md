@@ -16,7 +16,7 @@ kibana-plugin install https://github.com/lmangani/kibana-kable/raw/master/dist/k
 ./release.sh
 ```
 
-### Functions
+### Kable Functions
 
 | name  | description | param  |
 |---|---|---|
@@ -37,6 +37,13 @@ kibana-plugin install https://github.com/lmangani/kibana-kable/raw/master/dist/k
 | table  | Select columns in a table, and optionally rename them  | `columns`[],`as`[]  |
 | timeseries  | Create timeseries   | `field`,`interval`,`format`  |
 | top  | Select top results  | `field`,`count`#  |
+
+### Timelion Functions
+Kable provides an experimental integration with Timelion for Kable `.timeseries` output.
+```
+.kable(expression=".index(_all).timeseries(field=@timestamp,interval=5m)")
+```
+<img src="https://user-images.githubusercontent.com/1423657/44106130-01abc320-9ff4-11e8-8f9a-8488c03bfa28.png" width=500>
 
 
 #### Pro tips
