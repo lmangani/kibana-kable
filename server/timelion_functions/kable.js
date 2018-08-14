@@ -25,7 +25,6 @@ var toSeriesList = function(dataTable){
         return [ pair[t0], pair[t0+2] ]
   }));
   series.list[0].label = headers[t0+2]
-  console.log('FORMED SERIES:',series);
   return series;
 }
 
@@ -46,17 +45,17 @@ module.exports = new Datasource('kable', {
   help: 'Pull data from Kable Expressions.',
 
   fn: function kableFn (args, tlConfig) {  
-      var config = _.defaults(args.byName, {
-        deviceId: 1,
-        chartId: 1000,
-        label: "Data from Kable Timeseries Expression"
-      })
+	  
+        var config = _.defaults(args.byName, {
+          deviceId: 1,
+          chartId: 1000,
+          label: "Data from Kable Timeseries Expression"
+        })
   
-      var expression = config.expression;
-      if(!expression) throw 'missing expression!';
+        var expression = config.expression;
+        if(!expression) throw 'missing expression!';
   
-      var query = { expression: expression, time: tlConfig.time };
-      
+        var query = { expression: expression, time: tlConfig.time };
         return tlConfig.server.inject({
 	       	method: 'POST',
 	       	url: '/api/kable/run',
@@ -67,10 +66,8 @@ module.exports = new Datasource('kable', {
 	       	},  
 	       	payload: query
         })
-	.then(function (resp) { return resp.result; })
 	.then(function (resp) {
-		console.log('!!!!!!!!!!!!!!!',resp);
-		return toSeriesList(resp);
+	      return toSeriesList(resp.result);
         }).catch(function (e) {
 	      throw e;
         });
